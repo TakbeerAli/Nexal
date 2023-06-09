@@ -1,0 +1,10 @@
+.form_Page {
+  padding: 20px;
+  background-color: #ecf8f9;
+  border-radius: 15px;
+}
+
+.error {
+  color: red;
+}
+/* Add additional styling as needed */

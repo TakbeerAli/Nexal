@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-function App() {
+import AddUserForm from "./component/AddUserForm";
+import UserTable from "./component/UserTable";
+import data from "./data/property.json";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+
+const App = () => {
+  const [userProperties, setUserProperties] = useState(data);
+
+  // function for adding user and there properties
+  const addUser = (newUser) => {
+    setUserProperties([...userProperties, newUser]);
+  };
+
+  // function for deleting the user and there properties
+  const handleDeleteUser = (index) => {
+    setUserProperties((prevUserProperties) => {
+      const updatedUserProperties = [...prevUserProperties];
+      updatedUserProperties.splice(index, 1);
+      return updatedUserProperties;
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AddUserForm addUser={addUser} />
+      <UserTable
+        userProperties={userProperties}
+        onDeleteUser={handleDeleteUser}
+      />
     </div>
   );
-}
+};
 
 export default App;
