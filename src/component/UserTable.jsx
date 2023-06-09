@@ -14,7 +14,7 @@ const UserTable = ({ userProperties, onDeleteUser }) => {
             <th scope="col">Name</th>
             <th scope="col">Age</th>
             <th scope="col">Properties</th>
-            <th scope="col">unit_size</th>
+
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -29,9 +29,10 @@ const UserTable = ({ userProperties, onDeleteUser }) => {
                   </>
                 )}
                 <td>
-                  {propertyIndex + 1}) {property.location}
+                  {propertyIndex + 1}) {property.location} ,{" "}
+                  {property.unit_size}
                 </td>
-                <td>{property.unit_size}</td>
+
                 {propertyIndex === 0 && (
                   <>
                     <td rowSpan={user.properties.length}>
