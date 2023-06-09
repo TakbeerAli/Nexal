@@ -1,14 +1,30 @@
 import React, { useState } from "react";
 import "./AddUserForm.css";
+import InputField from "./InputField";
 const AddUserForm = ({ addUser }) => {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [location1, setLocation1] = useState("");
-  const [unitSize1, setUnitSize1] = useState("");
-  const [location2, setLocation2] = useState("");
-  const [unitSize2, setUnitSize2] = useState("");
+  // 1 useState for all data
+  const [inputValue, setInputValue] = useState({
+    name: "",
+    age: "",
+    location1: "",
+    unitSize1: "",
+    location2: "",
+    unitSize2: "",
+  });
+  const { name, age, location1, unitSize1, location2, unitSize2 } = inputValue;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    console.log(inputValue);
+  };
+
+  //state for the errors
   const [errors, setErrors] = useState({});
 
+  // function for validation of the inputs field
   const validateForm = () => {
     const errors = {};
 
@@ -67,13 +83,15 @@ const AddUserForm = ({ addUser }) => {
       addUser(newUser);
 
       // Reset the form fields
-      setName("");
-      setAge("");
-      setLocation1("");
-      setUnitSize1("");
-      setLocation2("");
-      setUnitSize2("");
-      // Form is valid, perform further actions (e.g., submit form data)
+      setInputValue({
+        name: "",
+        age: "",
+        location1: "",
+        unitSize1: "",
+        location2: "",
+        unitSize2: "",
+      });
+
       console.log("Form submitted");
     } else {
       // Form is invalid, display error messages
@@ -87,22 +105,24 @@ const AddUserForm = ({ addUser }) => {
       <form onSubmit={handleSubmit}>
         <div class="row">
           <div class="col">
-            <input
+            <InputField
               type="text"
-              class="form-control"
-              placeholder="Name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              placeholder=" Name"
+              label="Name"
+              name="name"
+              onChange={handleChange}
             />
             {errors.name && <span className="error">{errors.name}</span>}
           </div>
           <div class="col">
-            <input
+            <InputField
               type="text"
-              class="form-control"
               value={age}
               placeholder="Age"
-              onChange={(e) => setAge(e.target.value)}
+              label="Age"
+              name="age"
+              onChange={handleChange}
             />
             {errors.age && <span className="error">{errors.age}</span>}
           </div>
@@ -113,12 +133,13 @@ const AddUserForm = ({ addUser }) => {
         <div className="row mt-2">
           <div>Property 1</div>
           <div class="col">
-            <input
+            <InputField
               type="text"
-              class="form-control"
-              placeholder=" Property 1 Location"
               value={location1}
-              onChange={(e) => setLocation1(e.target.value)}
+              placeholder="location 1 of property"
+              label="location1"
+              name="location1"
+              onChange={handleChange}
             />
 
             {/* if input is empty show error */}
@@ -128,12 +149,13 @@ const AddUserForm = ({ addUser }) => {
           </div>
 
           <div class="col">
-            <input
+            <InputField
               type="text"
-              class="form-control"
               value={unitSize1}
-              placeholder="unit size 1"
-              onChange={(e) => setUnitSize1(e.target.value)}
+              placeholder=" unit size 1"
+              label="unitSize1"
+              name="unitSize1"
+              onChange={handleChange}
             />
 
             {/* if input is empty show error */}
@@ -148,12 +170,13 @@ const AddUserForm = ({ addUser }) => {
         <div className="row mt-2">
           <div>Property 2</div>
           <div class="col">
-            <input
+            <InputField
               type="text"
-              class="form-control"
-              placeholder="Property 2 Location"
               value={location2}
-              onChange={(e) => setLocation2(e.target.value)}
+              placeholder="Property 2 location"
+              label="location2"
+              name="location2"
+              onChange={handleChange}
             />
 
             {/* if input is empty show error */}
@@ -163,12 +186,13 @@ const AddUserForm = ({ addUser }) => {
           </div>
 
           <div class="col">
-            <input
+            <InputField
               type="text"
-              class="form-control"
               value={unitSize2}
               placeholder="unit size 2"
-              onChange={(e) => setUnitSize2(e.target.value)}
+              label="unitSize2"
+              name="unitSize2"
+              onChange={handleChange}
             />
 
             {/* if input is empty show error */}
